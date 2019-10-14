@@ -1,0 +1,8 @@
+#!/bin/bash
+
+PORT=8080
+SSID=`/System/Library/PrivateFrameworks/Apple80211.framework/Resources/airport -I | awk -F: '/ SSID/{print $2}'`
+URL="`hostname`:$PORT"
+
+echo "Connect device to$SSID and navigate to $URL"
+python3 -m http.server $PORT
