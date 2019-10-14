@@ -11,8 +11,8 @@
 </head>
 
 <body class="noselect">
-    <div style="float:left;width:100%;">
-        <textarea name="input" id=""></textarea>
+    <div id="output">
+        <textarea placeholder="Text will show up here"></textarea>
     </div>
 
     <div id="keyboard">
@@ -22,7 +22,7 @@
     <script type="text/javascript" src="./node_modules/nipplejs/dist/nipplejs.js"></script>
     <script type="text/javascript">
         var options = {
-            zone: document.getElementById('zone_joystick'), // active zone
+            zone: document.getElementById('zone_joystick'),
             size: 75,
             multitouch: false,
             dataOnly: false,

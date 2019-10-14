@@ -16,14 +16,20 @@ textarea {
 	-moz-box-sizing: border-box;
 	box-sizing: border-box;
 
-    height: 50%;
+    height: 27%;
 	width: 100%;
 
     font-size: 16px;
 }
 
+#output {
+    float: left;
+    width: 100%;
+    padding-bottom: 3%
+}
+
 #keyboard {
-    height: 50%;
+    height: 70%;
     width: 100%;
     float: bottom;
     bottom: 10px;
