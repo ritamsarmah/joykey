@@ -1,5 +1,9 @@
+html, body {
+  overflow: hidden;
+}
+
 textarea {
-    /* border: none; */
+    border: none;
     outline: none;
     resize: none;
     
