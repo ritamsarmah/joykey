@@ -15,4 +15,4 @@ JoyKey is a keyboard designed for small, touch-screen devices. The joystick area
 - Reported WPM: TODO
 
 ## Dependencies
-- The joystick UI and controls uses [Nipple.js](https://github.com/yoannmoinet/nipplejs)
+- The joystick UI and controls are implemented using [Nipple.js](https://github.com/yoannmoinet/nipplejs)
