@@ -28,6 +28,10 @@ textarea {
     padding-bottom: 3%
 }
 
+#textarea {
+    /* pointer-events: none; */
+}
+
 #keyboard {
     height: 70%;
     width: 100%;
