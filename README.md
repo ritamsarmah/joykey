@@ -1,6 +1,6 @@
 # JoyKey
 
-JoyKey is a keyboard designed for small, touch-screen devices. The joystick area utilizes a total area of 4 cm<sup>2</sup>.
+JoyKey is a keyboard designed for small, touch-screen devices. The joystick area uses a total area of 4 cm<sup>2</sup>.
 
 ## Instructions
 - **Typing a letter** requires two gestures:
@@ -10,6 +10,9 @@ JoyKey is a keyboard designed for small, touch-screen devices. The joystick area
 - The last letter can be **deleted** using the top-left region
     - Holding the joystick in this direction will allow you to delete multiple characters
 
-## 
+## Results
 
-## Libraries
+- Reported WPM: TODO
+
+## Dependencies
+- The joystick UI and controls uses [Nipple.js](https://github.com/yoannmoinet/nipplejs)
