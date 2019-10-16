@@ -12,7 +12,7 @@
 
 <body class="noselect">
     <div id="output">
-        <textarea placeholder="Text will show up here"></textarea>
+        <textarea id="textarea" placeholder="Text will show up here"></textarea>
     </div>
 
     <div id="keyboard">
@@ -21,16 +21,113 @@
 
     <script type="text/javascript" src="./node_modules/nipplejs/dist/nipplejs.js"></script>
     <script type="text/javascript">
-        var options = {
+        const STATE = {
+            MAIN: 1,
+            SELECT_LETTER: 2,
+        };
+
+        const letters = {
+            "N": {
+                "N": "a",
+                "E": "b",
+                "S": "c",
+                "W": "d",
+            },
+            "NE": {
+                "N": "e",
+                "E": "f",
+                "S": "g",
+                "W": "h",
+            },
+            "E": {
+                "N": "i",
+                "E": "j",
+                "S": "k",
+                "W": "l",
+            },
+            "SE": {
+                "N": "m",
+                "E": "n",
+                "S": "o",
+                "W": "p",
+            },
+            "S": " ", // Space
+            "SW": {
+                "N": "u",
+                "E": "v",
+                "S": "w",
+                "W": "x",
+            },
+            "W": {
+                "N": "",
+                "E": "y",
+                "S": "",
+                "W": "z",
+            },
+            "NW": {
+                "N": ".",
+                "E": ",",
+                "S": "?",
+                "W": "!",
+            }
+        }
+
+        const cardinals = {"up": "N", "left": "W", "right": "E", "down": "S"};
+
+        const options = {
             zone: document.getElementById('zone_joystick'),
             size: 75,
             multitouch: false,
             dataOnly: false,
-            position: {left: '50%', top: '50%'},
+            position: { left: '50%', top: '50%' },
             mode: 'static',
             restJoystick: true,
         };
+
         var manager = nipplejs.create(options);
+        var textarea = document.getElementById("textarea");
+
+        var currentDirection = null;
+        var currentState = STATE.MAIN;
+        var letterSubset = null;
+
+        function direction(degrees) {
+            let index = parseInt((degrees / 45) + .5);
+            let direction = ['E', 'NE', 'N', 'NW', 'W', 'SW', 'S', 'SE'];
+
+            return direction[(index % direction.length)];
+        }
+
+        manager.on("move", (event, data) => {
+            if (data.distance < 18) {
+                currentDirection = null;
+            } else if (currentState == STATE.MAIN) {
+                currentDirection = direction(data.angle.degree);
+            } else if (currentState == STATE.SELECT_LETTER) {
+                currentDirection = cardinals[data.direction.angle];
+            }
+        });
+
+        manager.on("end", (event, nipple) => {
+            if (currentDirection == null) return;
+
+            switch (currentState) {
+                case STATE.MAIN:
+                    var next = letters[currentDirection]
+                    if (typeof next === "object") {
+                        letterSubset = next;
+                        currentState = STATE.SELECT_LETTER;
+                        console.log(letterSubset)
+                    } else if (next === " ") {
+                        textarea.value += " ";
+                    }
+                    break;
+                case STATE.SELECT_LETTER:
+                    textarea.value += letterSubset[currentDirection]
+                    currentState = STATE.MAIN;
+                    break;
+            }
+        });
     </script>
 </body>
 
