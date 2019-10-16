@@ -32,49 +32,49 @@
         };
 
         const letters = {
-            "N": {
+            "N": "DEL",
+            "NE": {
                 "N": "a",
                 "E": "b",
                 "S": "c",
                 "W": "d",
             },
-            "NE": {
+            "E": {
                 "N": "e",
                 "E": "f",
                 "S": "g",
                 "W": "h",
             },
-            "E": {
+            "SE": {
                 "N": "i",
                 "E": "j",
                 "S": "k",
                 "W": "l",
             },
-            "SE": {
+            "S": {
                 "N": "m",
                 "E": "n",
                 "S": "o",
                 "W": "p",
             },
-            "S": {
+            "SW": {
                 "N": "q",
                 "E": "r",
                 "S": "s",
                 "W": "t",
             },
-            "SW": {
+            "W": {
                 "N": "u",
                 "E": "v",
                 "S": "w",
                 "W": "x",
             },
-            "W": {
+            "NW": {
                 "N": ".",
                 "E": "z",
                 "S": " ",
                 "W": "y",
-            },
-            "NW": "DEL"
+            }
         }
 
         const cardinals = {"up": "N", "left": "W", "right": "E", "down": "S"};
@@ -113,7 +113,7 @@
                 currDir = direction(data.angle.degree);
 
                 // Allow user to delete by sticking to delete
-                if (currDir === "NW") {
+                if (currDir === "N") {
                     if (backspaceDelay == null) {
                         backspace();
 

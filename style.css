@@ -29,7 +29,7 @@ textarea {
 }
 
 #textarea {
-    /* pointer-events: none; */
+    pointer-events: none;
 }
 
 #keyboard {
@@ -39,21 +39,22 @@ textarea {
     bottom: 10px;
     margin: 0 auto;
 
-    background-color: orange;
+    background-color: gray;
+    border-radius: 8px;
 
     display: flex;
     justify-content: center;
     align-items: center;
-
-    /* pointer-events: all; */
 }
 
 #zone_joystick {
+    border-radius: 8px;
+
+    /* background-color: lightseagreen; */
     width: 2cm;
     height: 2cm;
     margin: auto;
     position: absolute;
-    /* pointer-events: all; */
 }
 
 .noselect {
