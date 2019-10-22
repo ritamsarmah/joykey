@@ -31,7 +31,7 @@
             </div>
             <div id="E" class="sector" style="transform: rotate(157.5deg) skew(45deg);">
                 <div class="key_text text2">
-                    <p id="tE">IJKL</p>
+                    <p id="tE">&nbsp;IJKL</p>
                 </div>
             </div>
             <div id="SE" class="sector" style="transform: rotate(202.5deg) skew(45deg);">
@@ -51,7 +51,7 @@
             </div>
             <div id="W" class="sector" style="transform: rotate(337.5deg) skew(45deg);">
                 <div class="key_text text5">
-                    <p id="tW">YZ_.</p>
+                    <p id="tW">YZ␣.</p>
                 </div>
             </div>
             <div id="NW" class="sector" style="transform: rotate(382.5deg) skew(45deg);">
@@ -247,28 +247,32 @@
         function resetText() {
             tN.innerHTML = "ABCD";
             tNE.innerHTML = "EFGH";
-            tE.innerHTML = "IJKL";
+            tE.innerHTML = "&nbsp;IJKL";
             tSE.innerHTML = "MNOP";
             tS.innerHTML = "QRST";
             tSW.innerHTML= "UVWX";
-            tW.innerHTML = "YZ_.";
+            tW.innerHTML = "YZ␣.";
             tNW.innerHTML = "&nbsp;&nbsp;<i class=\"fas fa-backspace\"></i>";
 
             document.getElementById("circle").innerHTML = "";
         }
 
         function setText(letterSubset) {
-            tN.innerHTML = "&nbsp;&nbsp;&nbsp;" + letterSubset["N"].toUpperCase();
-            tE.innerHTML = "&nbsp;&nbsp;" + letterSubset["E"].toUpperCase();
+            if (letterSubset["N"] === ".") {
+                tN.innerHTML = "&nbsp".repeat(4) + ".";
+            } else {
+                tN.innerHTML = "&nbsp;".repeat(3) + letterSubset["N"].toUpperCase();
+            }
+            tE.innerHTML = "&nbsp;".repeat(3) + letterSubset["E"].toUpperCase();
 
             // Special case for space letter
             if (letterSubset["S"] === " ") {
-                tS.innerHTML = "&nbsp;&nbsp;&nbsp;_";
+                tS.innerHTML = "&nbsp;".repeat(4) + "␣";
             } else {
-                tS.innerHTML = "&nbsp;&nbsp;&nbsp;" + letterSubset["S"].toUpperCase();
+                tS.innerHTML = "&nbsp;".repeat(4) + letterSubset["S"].toUpperCase();
             }
 
-            tW.innerHTML = "&nbsp;&nbsp;&nbsp;" + letterSubset["W"].toUpperCase();
+            tW.innerHTML = "&nbsp;".repeat(3) + letterSubset["W"].toUpperCase();
             tNE.innerHTML = " ";
             tSE.innerHTML = " ";
             tSW.innerHTML = " ";
