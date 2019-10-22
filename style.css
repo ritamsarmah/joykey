@@ -74,7 +74,7 @@ textarea {
 .sector {
     position: absolute;
     transform-origin: 100% 100%;
-    background: rgb(84, 183, 223);
+    background: skyblue;
     width: 8cm;
     height: 8cm;
     left: 50%;
@@ -86,20 +86,15 @@ textarea {
 }
 
 .sector_selected {
-    background: rgb(100, 148, 211);
-}
-
-.sector_grey {
-    background: grey;
-    /* opacity: 10%; */
+    background: coral;
 }
 
 .key_text {
     position: relative;
     padding: 8px 6px;
     font-size: 14px;
-    font-family: Arial, Helvetica, sans-serif;
-    font-weight: bold;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
     color: white;
 }
 
@@ -133,12 +128,18 @@ textarea {
     transform: skew(-45deg, 0deg) rotate(22.5deg);
 }
 
-.circle {
+#circle {
     position: absolute;
     height: 3.5cm;
     width: 3.5cm;
     background-color: white;
     border-radius: 50%;
+    font-size: 30px;
+    color: skyblue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .noselect {

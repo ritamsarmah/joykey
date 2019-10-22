@@ -7,6 +7,7 @@
     <title>Tiny Key</title>
 
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 
@@ -49,16 +50,16 @@
             </div>
             <div id="W" class="sector" style="transform: rotate(337.5deg) skew(45deg);">
                 <div class="key_text text5">
-                    <p id="tW">YZ _ .</p>
+                    <p id="tW">YZ_.</p>
                 </div>
             </div>
             <div id="NW" class="sector" style="transform: rotate(382.5deg) skew(45deg);">
                 <div class="key_text text1">
-                    <p id="tNW">&nbsp;&nbsp;⌫</p>
+                    <p id="tNW">&nbsp;&nbsp;&nbsp;⌫</p>
                 </div>
             </div>
         </div>
-        <div class="circle"></div>
+        <div id="circle"></div>
     </div>
 
     <div id="joystick_area">
@@ -129,7 +130,7 @@
             multitouch: false,
             dataOnly: false,
             position: { left: '50%', top: '50%' },
-            color: 'rgb(84, 183, 223)',
+            color: 'skyblue',
             mode: 'static',
             restJoystick: true,
         };
@@ -249,28 +250,30 @@
             tSE.innerHTML = "MNOP";
             tS.innerHTML = "QRST";
             tSW.innerHTML= "UVWX";
-            tW.innerHTML = "YZ _ .";
-            tNW.innerHTML = "&nbsp;&nbsp;⌫";
+            tW.innerHTML = "YZ_.";
+            tNW.innerHTML = "&nbsp;&nbsp;&nbsp;⌫";
+
+            document.getElementById("circle").innerHTML = "";
         }
 
         function setText(letterSubset) {
-            // tNE.classList.add("sector_grey");
-            // tSE.classList.add("sector_grey");
-            // tSW.classList.add("sector_grey");
-            // tNW.classList.add("sector_grey");
-
             tN.innerHTML = "&nbsp;&nbsp;&nbsp;" + letterSubset["N"].toUpperCase();
             tE.innerHTML = "&nbsp;&nbsp;" + letterSubset["E"].toUpperCase();
+
+            // Special case for space letter
             if (letterSubset["S"] === " ") {
                 tS.innerHTML = "&nbsp;&nbsp;&nbsp;_";
             } else {
                 tS.innerHTML = "&nbsp;&nbsp;&nbsp;" + letterSubset["S"].toUpperCase();
             }
+
             tW.innerHTML = "&nbsp;&nbsp;&nbsp;" + letterSubset["W"].toUpperCase();
             tNE.innerHTML = " ";
             tSE.innerHTML = " ";
             tSW.innerHTML = " ";
             tNW.innerHTML = " ";
+
+            document.getElementById("circle").innerHTML = "✕";
         }
 
     </script>
