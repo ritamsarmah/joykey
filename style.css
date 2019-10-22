@@ -33,14 +33,22 @@ textarea {
 }
 
 #keyboard {
-    height: 70%;
+    height: 45%;
     width: 100%;
+    margin: 0 auto;
+
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#joystick_area {
+    height: 25%;
     float: bottom;
     bottom: 10px;
     margin: 0 auto;
-
-    background-color: gray;
-    border-radius: 8px;
 
     display: flex;
     justify-content: center;
@@ -71,7 +79,7 @@ textarea {
     height: 8cm;
     left: 50%;
     top: 50%;
-    /* border: 0.5px solid white; */
+    border: 0.5px solid white;
     margin-top: -8cm;
     margin-left: -8cm;
     overflow: hidden;
@@ -83,55 +91,45 @@ textarea {
 
 .sector_grey {
     background: grey;
+    /* opacity: 10%; */
 }
 
-.text { 
-    position: relative; 
+.key_text {
+    position: relative;
+    padding: 8px 6px;
+    font-size: 14px;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    color: white;
+}
+
+.text1 { 
     top: 120px; 
     left: 270px; 
-    padding: 10px 10px; 
-    font-size:12px;
-    font-family: Arial, Helvetica, sans-serif;
     transform: skew(-45deg, 0deg) rotate(-67.5deg);
 }
 
 .text2 { 
-    position: relative; 
     top: 190px; 
     left: 30px; 
-    padding: 10px 10px; 
-    font-size:12px;
-    font-family: Arial, Helvetica, sans-serif;
     transform: skew(-45deg, 0deg) rotate(-157.5deg);
 }
 
 .text3 { 
-    position: relative; 
     top: 352px; 
     left: -60px; 
-    padding: 10px 10px; 
-    font-size:12px;
-    font-family: Arial, Helvetica, sans-serif;
     transform: skew(-45deg, 0deg) rotate(-247.5deg);
 }
 
 .text4 { 
-    position: relative; 
     top: 352px; 
     left: -60px; 
-    padding: 10px 10px; 
-    font-size:12px;
-    font-family: Arial, Helvetica, sans-serif;
     transform: skew(-45deg, 0deg) rotate(112.5deg);
 }
 
 .text5 { 
-    position: relative; 
     top: 287px; 
     left: 172px; 
-    padding: 10px 10px; 
-    font-size:12px;
-    font-family: Arial, Helvetica, sans-serif;
     transform: skew(-45deg, 0deg) rotate(22.5deg);
 }
 
@@ -139,7 +137,7 @@ textarea {
     position: absolute;
     height: 3.5cm;
     width: 3.5cm;
-    background-color: gray;
+    background-color: white;
     border-radius: 50%;
 }
 

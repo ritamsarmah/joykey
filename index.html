@@ -18,47 +18,50 @@
     <div id="keyboard">
         <div class="wrapper">
             <div id="N" class="sector" style="transform: rotate(67.5deg) skew(45deg);">
-                <div class="text">
-                    <p id = "tN">ABCD</p>
+                <div class="key_text text1">
+                    <p id="tN">ABCD</p>
                 </div>
             </div>
             <div id="NE" class="sector" style="transform: rotate(112.5deg) skew(45deg);">
-                <div class="text">
-                    <p id = "tNE">EFGH</p>
+                <div class="key_text text1">
+                    <p id="tNE">EFGH</p>
                 </div>
             </div>
             <div id="E" class="sector" style="transform: rotate(157.5deg) skew(45deg);">
-                <div class="text2">
-                    <p id = "tE">IJKL</p>
+                <div class="key_text text2">
+                    <p id="tE">IJKL</p>
                 </div>
             </div>
             <div id="SE" class="sector" style="transform: rotate(202.5deg) skew(45deg);">
-                <div class="text3">
-                    <p id = "tSE">MNOP</p>
+                <div class="key_text text3">
+                    <p id="tSE">MNOP</p>
                 </div>
             </div>
             <div id="S" class="sector" style="transform: rotate(247.5deg) skew(45deg);">
-                <div class="text4">
-                    <p id = "tS">QRST</p>
+                <div class="key_text text4">
+                    <p id="tS">QRST</p>
                 </div>
             </div>
             <div id="SW" class="sector" style="transform: rotate(292.5deg) skew(45deg);">
-                <div class="text3">
-                    <p id = "tSW">UVWX</p>
+                <div class="key_text text3">
+                    <p id="tSW">UVWX</p>
                 </div>
             </div>
             <div id="W" class="sector" style="transform: rotate(337.5deg) skew(45deg);">
-                <div class="text5">
-                    <p id = "tW">YZ _ .</p>
+                <div class="key_text text5">
+                    <p id="tW">YZ _ .</p>
                 </div>
             </div>
             <div id="NW" class="sector" style="transform: rotate(382.5deg) skew(45deg);">
-                <div class="text">
-                    <p id = "tNW">⌫</p>
+                <div class="key_text text1">
+                    <p id="tNW">&nbsp;&nbsp;⌫</p>
                 </div>
             </div>
         </div>
         <div class="circle"></div>
+    </div>
+
+    <div id="joystick_area">
         <div id="zone_joystick" class="noselect"></div>
     </div>
 
@@ -66,7 +69,6 @@
     <script type="text/javascript">
         var zone = document.getElementById("zone_joystick");
         var textarea = document.getElementById("textarea");
-        // var log = document.getElementById("log");
         
         const STATE = {
             MAIN: 1,
@@ -95,8 +97,8 @@
             "SE": {
                 "N": "m",
                 "W": "n",
-                "E": "p",
-                "S": "o",
+                "E": "o",
+                "S": "p",
             },
             "S": {
                 "N": "q",
@@ -127,6 +129,7 @@
             multitouch: false,
             dataOnly: false,
             position: { left: '50%', top: '50%' },
+            color: 'rgb(84, 183, 223)',
             mode: 'static',
             restJoystick: true,
         };
@@ -168,9 +171,7 @@
                 // Allow user to delete by sticking to delete
                 if (currDir === "NW") {
                     if (backspaceDelay == null) {
-                        backspace();
-
-                        // Initial delay for beginning to deleteinterval
+                        // Initial delay for beginning to delete interval
                         backspaceDelay = setTimeout(() => {
                             if (backspaceTimer == null) {
                                 backspaceTimer = setInterval(backspace, 120);
@@ -192,7 +193,7 @@
             resetBackspace();
             if (currDir == null) {
                 currentState = STATE.MAIN;
-                // log.innerHTML = "—<br>—<br>—";
+                resetText();
             };
 
             switch (currentState) {
@@ -201,14 +202,15 @@
                     if (typeof next === "object") {
                         letterSubset = next;
                         currentState = STATE.SELECT_LETTER;
-                        values = Object.values(next)
-                        // log.innerHTML = values[0] + "<br>" + values[1] + "&nbsp;&emsp;" + values[2] + "<br>" + values[3];
+                        setText(letterSubset);
+                    } else if (next === "DEL") {
+                        backspace();
                     }
                     break;
                 case STATE.SELECT_LETTER:
                     type(letterSubset[currDir]);
                     currentState = STATE.MAIN;
-                    // log.innerHTML = "—<br>—<br>—";
+                    resetText();
                     break;
             }
 
@@ -231,26 +233,44 @@
             backspaceTimer = null;
         }
 
+        var tN = document.getElementById("tN");
+        var tE = document.getElementById("tE");
+        var tS = document.getElementById("tS");
+        var tW = document.getElementById("tW");
+        var tNE = document.getElementById("tNE");
+        var tSE = document.getElementById("tSE");
+        var tSW = document.getElementById("tSW");
+        var tNW = document.getElementById("tNW");
+
         function resetText() {
-            document.getElementById("tN").innerHTML="ABCD";
-            document.getElementById("tNE").innerHTML="EFGH";
-            document.getElementById("tE").innerHTML="IJKL";
-            document.getElementById("tSE").innerHTML="MNOP";
-            document.getElementById("tS").innerHTML="QRST";
-            document.getElementById("tSW").innerHTML="ABCD";
-            document.getElementById("tW").innerHTML="YZ _ .";
-            document.getElementById("tNW").innerHTML="⌫";
+            tN.innerHTML = "ABCD";
+            tNE.innerHTML = "EFGH";
+            tE.innerHTML = "IJKL";
+            tSE.innerHTML = "MNOP";
+            tS.innerHTML = "QRST";
+            tSW.innerHTML= "UVWX";
+            tW.innerHTML = "YZ _ .";
+            tNW.innerHTML = "&nbsp;&nbsp;⌫";
         }
 
-        function set_Text(letterSubset) {
-            document.getElementById("tN").innerHTML=letterSubset["N"];
-            document.getElementById("tNE").innerHTML=" ";
-            document.getElementById("tE").innerHTML=letterSubset["E"];
-            document.getElementById("tSE").innerHTML=" ";
-            document.getElementById("tS").innerHTML=letterSubset["S"];
-            document.getElementById("tSW").innerHTML=" ";
-            document.getElementById("tW").innerHTML=letterSubset["W"];
-            document.getElementById("tNW").innerHTML=" ";
+        function setText(letterSubset) {
+            // tNE.classList.add("sector_grey");
+            // tSE.classList.add("sector_grey");
+            // tSW.classList.add("sector_grey");
+            // tNW.classList.add("sector_grey");
+
+            tN.innerHTML = "&nbsp;&nbsp;&nbsp;" + letterSubset["N"].toUpperCase();
+            tE.innerHTML = "&nbsp;&nbsp;" + letterSubset["E"].toUpperCase();
+            if (letterSubset["S"] === " ") {
+                tS.innerHTML = "&nbsp;&nbsp;&nbsp;_";
+            } else {
+                tS.innerHTML = "&nbsp;&nbsp;&nbsp;" + letterSubset["S"].toUpperCase();
+            }
+            tW.innerHTML = "&nbsp;&nbsp;&nbsp;" + letterSubset["W"].toUpperCase();
+            tNE.innerHTML = " ";
+            tSE.innerHTML = " ";
+            tSW.innerHTML = " ";
+            tNW.innerHTML = " ";
         }
 
     </script>
