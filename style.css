@@ -81,6 +81,10 @@ textarea {
     background: rgb(100, 148, 211);
 }
 
+.sector_grey {
+    background: grey;
+}
+
 .text { 
     position: relative; 
     top: 120px; 

@@ -19,42 +19,42 @@
         <div class="wrapper">
             <div id="N" class="sector" style="transform: rotate(67.5deg) skew(45deg);">
                 <div class="text">
-                    <p>ABCD</p>
+                    <p id = "tN">ABCD</p>
                 </div>
             </div>
             <div id="NE" class="sector" style="transform: rotate(112.5deg) skew(45deg);">
                 <div class="text">
-                    <p>EFGH</p>
+                    <p id = "tNE">EFGH</p>
                 </div>
             </div>
             <div id="E" class="sector" style="transform: rotate(157.5deg) skew(45deg);">
                 <div class="text2">
-                    <p>IJKL</p>
+                    <p id = "tE">IJKL</p>
                 </div>
             </div>
             <div id="SE" class="sector" style="transform: rotate(202.5deg) skew(45deg);">
                 <div class="text3">
-                    <p>MNOP</p>
+                    <p id = "tSE">MNOP</p>
                 </div>
             </div>
             <div id="S" class="sector" style="transform: rotate(247.5deg) skew(45deg);">
                 <div class="text4">
-                    <p>QRST</p>
+                    <p id = "tS">QRST</p>
                 </div>
             </div>
             <div id="SW" class="sector" style="transform: rotate(292.5deg) skew(45deg);">
                 <div class="text3">
-                    <p>UVWX</p>
+                    <p id = "tSW">UVWX</p>
                 </div>
             </div>
             <div id="W" class="sector" style="transform: rotate(337.5deg) skew(45deg);">
                 <div class="text5">
-                    <p>ZY _ .</p>
+                    <p id = "tW">YZ _ .</p>
                 </div>
             </div>
             <div id="NW" class="sector" style="transform: rotate(382.5deg) skew(45deg);">
                 <div class="text">
-                    <p>⌫</p>
+                    <p id = "tNW">⌫</p>
                 </div>
             </div>
         </div>
@@ -67,7 +67,7 @@
         var zone = document.getElementById("zone_joystick");
         var textarea = document.getElementById("textarea");
         // var log = document.getElementById("log");
-
+        
         const STATE = {
             MAIN: 1,
             SELECT_LETTER: 2,
@@ -230,6 +230,29 @@
             backspaceDelay = null;
             backspaceTimer = null;
         }
+
+        function resetText() {
+            document.getElementById("tN").innerHTML="ABCD";
+            document.getElementById("tNE").innerHTML="EFGH";
+            document.getElementById("tE").innerHTML="IJKL";
+            document.getElementById("tSE").innerHTML="MNOP";
+            document.getElementById("tS").innerHTML="QRST";
+            document.getElementById("tSW").innerHTML="ABCD";
+            document.getElementById("tW").innerHTML="YZ _ .";
+            document.getElementById("tNW").innerHTML="⌫";
+        }
+
+        function set_Text(letterSubset) {
+            document.getElementById("tN").innerHTML=letterSubset["N"];
+            document.getElementById("tNE").innerHTML=" ";
+            document.getElementById("tE").innerHTML=letterSubset["E"];
+            document.getElementById("tSE").innerHTML=" ";
+            document.getElementById("tS").innerHTML=letterSubset["S"];
+            document.getElementById("tSW").innerHTML=" ";
+            document.getElementById("tW").innerHTML=letterSubset["W"];
+            document.getElementById("tNW").innerHTML=" ";
+        }
+
     </script>
 </body>
 
