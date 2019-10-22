@@ -13,8 +13,8 @@
 <body class="noselect">
     <div id="output">
         <textarea id="textarea" placeholder="Text will show up here"></textarea>
+        <p id="log" style="text-align: center;">—<br>—<br>—</p>
     </div>
-    <p id="log" style="text-align: center;">—</p>
 
 
     <div id="keyboard">
@@ -75,45 +75,45 @@
         const letters = {
             "N": {
                 "N": "a",
-                "E": "b",
-                "S": "c",
-                "W": "d",
+                "W": "b",
+                "E": "c",
+                "S": "d",
             },
             "NE": {
                 "N": "e",
-                "E": "f",
-                "S": "g",
-                "W": "h",
+                "W": "f",
+                "E": "g",
+                "S": "h",
             },
             "E": {
                 "N": "i",
-                "E": "j",
-                "S": "k",
-                "W": "l",
+                "W": "j",
+                "E": "k",
+                "S": "l",
             },
             "SE": {
                 "N": "m",
-                "E": "n",
+                "W": "n",
+                "E": "p",
                 "S": "o",
-                "W": "p",
             },
             "S": {
                 "N": "q",
-                "E": "r",
-                "S": "s",
-                "W": "t",
+                "W": "r",
+                "E": "s",
+                "S": "t",
             },
             "SW": {
                 "N": "u",
-                "E": "v",
-                "S": "w",
-                "W": "x",
+                "W": "v",
+                "E": "w",
+                "S": "x",
             },
             "W": {
                 "N": ".",
+                "W": "y",
                 "E": "z",
                 "S": " ",
-                "W": "y",
             },
             "NW": "DEL"
         }
@@ -147,7 +147,7 @@
         var backspaceTimer;
 
         manager.on("move", (event, data) => {
-            if (data.distance < 15) {
+            if (data.distance < 17) {
                 currDir = null;
                 resetBackspace();
             } else if (currentState == STATE.MAIN) {
@@ -163,7 +163,7 @@
                             if (backspaceTimer == null) {
                                 backspaceTimer = setInterval(backspace, 120);
                             }
-                        }, 300)
+                        }, 400)
                     }
                 } else {
                    resetBackspace(); 
@@ -178,7 +178,7 @@
             resetBackspace();
             if (currDir == null) {
                 currentState = STATE.MAIN;
-                log.innerText = "—";
+                log.innerHTML = "—<br>—<br>—";
             };
 
             switch (currentState) {
@@ -187,13 +187,14 @@
                     if (typeof next === "object") {
                         letterSubset = next;
                         currentState = STATE.SELECT_LETTER;
-                        log.innerText = Object.values(next);
+                        values = Object.values(next)
+                        log.innerHTML = values[0] + "<br>" + values[1] + "&nbsp;&emsp;" + values[2] + "<br>" + values[3];
                     }
                     break;
                 case STATE.SELECT_LETTER:
                     type(letterSubset[currDir]);
                     currentState = STATE.MAIN;
-                    log.innerText = "—";
+                    log.innerHTML = "—<br>—<br>—";
                     break;
             }
         });
