@@ -166,10 +166,11 @@
             var lastDir = currDir;
             if (data.distance < 15) {
                 currDir = null;
+                selectX();
                 resetBackspace();
             } else if (currentState == STATE.MAIN) {
                 currDir = direction(data.angle.degree);
-
+                deselectX();
                 // Allow user to delete by sticking to delete
                 if (currDir === "NW") {
                     if (backspaceDelay == null) {
@@ -185,6 +186,7 @@
                 }
             } else if (currentState == STATE.SELECT_LETTER) {
                 currDir = cardinals[data.direction.angle];
+                deselectX();
             }
             if (lastDir != currDir) {
                 selectSector(currDir);
@@ -258,8 +260,8 @@
         }
 
         function setText(letterSubset) {
-            if (letterSubset["N"] === ".") {
-                tN.innerHTML = "&nbsp".repeat(4) + ".";
+            if (letterSubset["N"] === "." || letterSubset["N"] === "i") {
+                tN.innerHTML = "&nbsp".repeat(4) + letterSubset["N"].toUpperCase();
             } else {
                 tN.innerHTML = "&nbsp;".repeat(3) + letterSubset["N"].toUpperCase();
             }
@@ -279,6 +281,14 @@
             tNW.innerHTML = " ";
 
             document.getElementById("circle").innerHTML = "✕";
+        }
+
+        function selectX() {
+            document.getElementById("circle").style.color = "coral";
+        }
+
+        function deselectX() {
+            document.getElementById("circle").style.color = "skyblue";
         }
 
     </script>
