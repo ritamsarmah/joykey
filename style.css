@@ -83,20 +83,52 @@ textarea {
 
 .text { 
     position: relative; 
-    top: 35px; 
-    left: 75px; 
+    top: 120px; 
+    left: 270px; 
     padding: 10px 10px; 
     font-size:12px;
+    font-family: Arial, Helvetica, sans-serif;
     transform: skew(-45deg, 0deg) rotate(-67.5deg);
 }
 
 .text2 { 
     position: relative; 
-    top: 35px; 
-    left: 75px; 
+    top: 190px; 
+    left: 30px; 
     padding: 10px 10px; 
     font-size:12px;
+    font-family: Arial, Helvetica, sans-serif;
     transform: skew(-45deg, 0deg) rotate(-157.5deg);
+}
+
+.text3 { 
+    position: relative; 
+    top: 352px; 
+    left: -60px; 
+    padding: 10px 10px; 
+    font-size:12px;
+    font-family: Arial, Helvetica, sans-serif;
+    transform: skew(-45deg, 0deg) rotate(-247.5deg);
+}
+
+.text4 { 
+    position: relative; 
+    top: 352px; 
+    left: -60px; 
+    padding: 10px 10px; 
+    font-size:12px;
+    font-family: Arial, Helvetica, sans-serif;
+    transform: skew(-45deg, 0deg) rotate(112.5deg);
+}
+
+.text5 { 
+    position: relative; 
+    top: 287px; 
+    left: 172px; 
+    padding: 10px 10px; 
+    font-size:12px;
+    font-family: Arial, Helvetica, sans-serif;
+    transform: skew(-45deg, 0deg) rotate(22.5deg);
 }
 
 .circle {
