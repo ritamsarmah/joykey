@@ -12,7 +12,7 @@ JoyKey is a joystick-based keyboard designed for small, touch-screen devices.
 
 ## Results
 
-- We had 4 participants test the keyboard, and after 15 minutes of use reached an average typing speed of ~10 WPM.
+- We had 4 participants test the keyboard. After 15 minutes of use they reached an average typing speed of ~10 WPM.
 
 ## Dependencies
 - The joystick UI is implemented using [Nipple.js](https://github.com/yoannmoinet/nipplejs)
