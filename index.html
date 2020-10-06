@@ -4,19 +4,66 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Tiny Key</title>
+    <title>JoyKey</title>
 
     <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
 </head>
 
 <body class="noselect">
     <div id="output">
         <textarea id="textarea" placeholder="Text will show up here"></textarea>
-        <p id="log" style="text-align: center;">—<br>—<br>—</p>
     </div>
 
     <div id="keyboard">
+        <div class="wrapper">
+            <div id="N" class="sector" style="transform: rotate(67.5deg) skew(45deg);">
+                <div class="key_text text1">
+                    <p id="tN">ABCD</p>
+                </div>
+            </div>
+            <div id="NE" class="sector" style="transform: rotate(112.5deg) skew(45deg);">
+                <div class="key_text text1">
+                    <p id="tNE">EFGH</p>
+                </div>
+            </div>
+            <div id="E" class="sector" style="transform: rotate(157.5deg) skew(45deg);">
+                <div class="key_text text2">
+                    <p id="tE">&nbsp;IJKL</p>
+                </div>
+            </div>
+            <div id="SE" class="sector" style="transform: rotate(202.5deg) skew(45deg);">
+                <div class="key_text text3">
+                    <p id="tSE">MNOP</p>
+                </div>
+            </div>
+            <div id="S" class="sector" style="transform: rotate(247.5deg) skew(45deg);">
+                <div class="key_text text4">
+                    <p id="tS">QRST</p>
+                </div>
+            </div>
+            <div id="SW" class="sector" style="transform: rotate(292.5deg) skew(45deg);">
+                <div class="key_text text3">
+                    <p id="tSW">UVWX</p>
+                </div>
+            </div>
+            <div id="W" class="sector" style="transform: rotate(337.5deg) skew(45deg);">
+                <div class="key_text text5">
+                    <p id="tW">YZ␣.</p>
+                </div>
+            </div>
+            <div id="NW" class="sector" style="transform: rotate(382.5deg) skew(45deg);">
+                <div class="key_text text1">
+                    <p id="tNW">&nbsp;&nbsp;<i class="fas fa-backspace"></i></p>
+                </div>
+            </div>
+        </div>
+        <div id="circle"></div>
+    </div>
+
+    <div id="joystick_area">
         <div id="zone_joystick" class="noselect"></div>
     </div>
 
@@ -24,8 +71,7 @@
     <script type="text/javascript">
         var zone = document.getElementById("zone_joystick");
         var textarea = document.getElementById("textarea");
-        var log = document.getElementById("log");
-
+        
         const STATE = {
             MAIN: 1,
             SELECT_LETTER: 2,
@@ -53,8 +99,8 @@
             "SE": {
                 "N": "m",
                 "W": "n",
-                "E": "p",
-                "S": "o",
+                "E": "o",
+                "S": "p",
             },
             "S": {
                 "N": "q",
@@ -77,7 +123,7 @@
             "NW": "DEL"
         }
 
-        const cardinals = {"up": "N", "left": "W", "right": "E", "down": "S"};
+        const cardinals = { "up": "N", "left": "W", "right": "E", "down": "S" };
 
         const options = {
             zone: zone,
@@ -85,6 +131,7 @@
             multitouch: false,
             dataOnly: false,
             position: { left: '50%', top: '50%' },
+            color: 'skyblue',
             mode: 'static',
             restJoystick: true,
         };
@@ -95,6 +142,9 @@
         var currentState = STATE.MAIN;
         var letterSubset = null;
 
+        var backspaceDelay;
+        var backspaceTimer;
+
         function direction(degrees) {
             let index = parseInt((degrees / 45) + .5);
             let direction = ['E', 'NE', 'N', 'NW', 'W', 'SW', 'S', 'SE'];
@@ -102,22 +152,29 @@
             return direction[(index % direction.length)];
         }
 
-        var backspaceDelay;
-        var backspaceTimer;
+        function selectSector(dir) {
+            Object.keys(letters).forEach(d => {
+                var sector = document.getElementById(d);
+                sector.className = "sector";
+                if (d === dir) {
+                    sector.classList.add("sector_selected");
+                }
+            });
+        }
 
         manager.on("move", (event, data) => {
-            if (data.distance < 17) {
+            var lastDir = currDir;
+            if (data.distance < 15) {
                 currDir = null;
+                selectX();
                 resetBackspace();
             } else if (currentState == STATE.MAIN) {
                 currDir = direction(data.angle.degree);
-
+                deselectX();
                 // Allow user to delete by sticking to delete
                 if (currDir === "NW") {
                     if (backspaceDelay == null) {
-                        backspace();
-
-                        // Initial delay for beginning to deleteinterval
+                        // Initial delay for beginning to delete interval
                         backspaceDelay = setTimeout(() => {
                             if (backspaceTimer == null) {
                                 backspaceTimer = setInterval(backspace, 120);
@@ -125,19 +182,22 @@
                         }, 400)
                     }
                 } else {
-                   resetBackspace(); 
+                    resetBackspace();
                 }
             } else if (currentState == STATE.SELECT_LETTER) {
                 currDir = cardinals[data.direction.angle];
+                deselectX();
             }
-            console.log(currDir);
+            if (lastDir != currDir) {
+                selectSector(currDir);
+            }
         });
 
         manager.on("end", (event, nipple) => {
             resetBackspace();
             if (currDir == null) {
                 currentState = STATE.MAIN;
-                log.innerHTML = "—<br>—<br>—";
+                resetText();
             };
 
             switch (currentState) {
@@ -146,16 +206,20 @@
                     if (typeof next === "object") {
                         letterSubset = next;
                         currentState = STATE.SELECT_LETTER;
-                        values = Object.values(next)
-                        log.innerHTML = values[0] + "<br>" + values[1] + "&nbsp;&emsp;" + values[2] + "<br>" + values[3];
+                        setText(letterSubset);
+                    } else if (next === "DEL") {
+                        backspace();
                     }
                     break;
                 case STATE.SELECT_LETTER:
                     type(letterSubset[currDir]);
                     currentState = STATE.MAIN;
-                    log.innerHTML = "—<br>—<br>—";
+                    resetText();
                     break;
             }
+
+            currDir = null;
+            selectSector(currDir);
         });
 
         function type(char) {
@@ -172,6 +236,61 @@
             backspaceDelay = null;
             backspaceTimer = null;
         }
+
+        var tN = document.getElementById("tN");
+        var tE = document.getElementById("tE");
+        var tS = document.getElementById("tS");
+        var tW = document.getElementById("tW");
+        var tNE = document.getElementById("tNE");
+        var tSE = document.getElementById("tSE");
+        var tSW = document.getElementById("tSW");
+        var tNW = document.getElementById("tNW");
+
+        function resetText() {
+            tN.innerHTML = "ABCD";
+            tNE.innerHTML = "EFGH";
+            tE.innerHTML = "&nbsp;IJKL";
+            tSE.innerHTML = "MNOP";
+            tS.innerHTML = "QRST";
+            tSW.innerHTML= "UVWX";
+            tW.innerHTML = "YZ␣.";
+            tNW.innerHTML = "&nbsp;&nbsp;<i class=\"fas fa-backspace\"></i>";
+
+            document.getElementById("circle").innerHTML = "";
+        }
+
+        function setText(letterSubset) {
+            if (letterSubset["N"] === "." || letterSubset["N"] === "i") {
+                tN.innerHTML = "&nbsp".repeat(4) + letterSubset["N"].toUpperCase();
+            } else {
+                tN.innerHTML = "&nbsp;".repeat(3) + letterSubset["N"].toUpperCase();
+            }
+            tE.innerHTML = "&nbsp;".repeat(3) + letterSubset["E"].toUpperCase();
+
+            // Special case for space letter
+            if (letterSubset["S"] === " ") {
+                tS.innerHTML = "&nbsp;".repeat(4) + "␣";
+            } else {
+                tS.innerHTML = "&nbsp;".repeat(4) + letterSubset["S"].toUpperCase();
+            }
+
+            tW.innerHTML = "&nbsp;".repeat(3) + letterSubset["W"].toUpperCase();
+            tNE.innerHTML = " ";
+            tSE.innerHTML = " ";
+            tSW.innerHTML = " ";
+            tNW.innerHTML = " ";
+
+            document.getElementById("circle").innerHTML = "✕";
+        }
+
+        function selectX() {
+            document.getElementById("circle").style.color = "coral";
+        }
+
+        function deselectX() {
+            document.getElementById("circle").style.color = "skyblue";
+        }
+
     </script>
 </body>
 

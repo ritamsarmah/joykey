@@ -1,6 +1,6 @@
 # JoyKey
 
-JoyKey is a keyboard designed for small, touch-screen devices. The joystick area uses a total area of 4 cm<sup>2</sup>.
+JoyKey is a joystick-based keyboard designed for small, touch-screen devices.
 
 ## Instructions
 - **Typing a letter** requires two gestures:
@@ -12,7 +12,7 @@ JoyKey is a keyboard designed for small, touch-screen devices. The joystick area
 
 ## Results
 
-- Reported WPM: TODO
+- We had 4 participants test the keyboard. After 15 minutes of use they reached an average typing speed of ~10 WPM.
 
 ## Dependencies
-- The joystick UI and controls are implemented using [Nipple.js](https://github.com/yoannmoinet/nipplejs)
+- The joystick UI is implemented using [Nipple.js](https://github.com/yoannmoinet/nipplejs)

@@ -33,14 +33,22 @@ textarea {
 }
 
 #keyboard {
-    height: 70%;
+    height: 45%;
     width: 100%;
+    margin: 0 auto;
+
+    border-radius: 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#joystick_area {
+    height: 25%;
     float: bottom;
     bottom: 10px;
     margin: 0 auto;
-
-    background-color: gray;
-    border-radius: 8px;
 
     display: flex;
     justify-content: center;
@@ -49,11 +57,89 @@ textarea {
 
 #zone_joystick {
     border-radius: 8px;
-
     width: 2cm;
     height: 2cm;
     margin: auto;
     position: absolute;
+}
+
+.wrapper {
+	width: 6cm;
+	height: 6cm;
+	border-radius: 50%;
+	position: relative;
+    overflow: hidden;
+}
+
+.sector {
+    position: absolute;
+    transform-origin: 100% 100%;
+    background: skyblue;
+    width: 8cm;
+    height: 8cm;
+    left: 50%;
+    top: 50%;
+    border: 0.5px solid white;
+    margin-top: -8cm;
+    margin-left: -8cm;
+    overflow: hidden;
+}
+
+.sector_selected {
+    background: coral;
+}
+
+.key_text {
+    position: relative;
+    padding: 8px 6px;
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 600;
+    color: white;
+}
+
+.text1 { 
+    top: 120px; 
+    left: 270px; 
+    transform: skew(-45deg, 0deg) rotate(-67.5deg);
+}
+
+.text2 { 
+    top: 190px; 
+    left: 30px; 
+    transform: skew(-45deg, 0deg) rotate(-157.5deg);
+}
+
+.text3 { 
+    top: 352px; 
+    left: -60px; 
+    transform: skew(-45deg, 0deg) rotate(-247.5deg);
+}
+
+.text4 { 
+    top: 352px; 
+    left: -60px; 
+    transform: skew(-45deg, 0deg) rotate(112.5deg);
+}
+
+.text5 { 
+    top: 287px; 
+    left: 172px; 
+    transform: skew(-45deg, 0deg) rotate(22.5deg);
+}
+
+#circle {
+    position: absolute;
+    height: 3.5cm;
+    width: 3.5cm;
+    background-color: white;
+    border-radius: 50%;
+    font-size: 30px;
+    color: skyblue;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .noselect {
